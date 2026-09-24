@@ -1,17 +1,21 @@
 import PropTypes from "prop-types";
-import Light from "./Light"; 
+import Light from "./Light";
 
-const TrafficLights = () => {
+const TrafficLights = ({ orientation = "vertical" }) => {
+  const isHorizontal = orientation === "horizontal";
+
   return (
     <div
       style={{
-        width: "150px",
-        backgroundColor: "black",
-        borderRadius: "20px",
         display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
+        flexDirection: isHorizontal ? "row" : "column",
         justifyContent: "center",
+        alignItems: "center",
+        gap: "12px",
+        width: isHorizontal ? "220px" : "150px",
+        height: isHorizontal ? "150px" : "220px",
+        padding: isHorizontal ? "15px" : "20px 10px",
+        backgroundColor: "#1f2937",
         margin: "40px auto",
       }}
     >
@@ -20,6 +24,10 @@ const TrafficLights = () => {
       <Light tlColor="green" />
     </div>
   );
+};
+
+TrafficLights.propTypes = {
+  orientation: PropTypes.oneOf(["vertical", "horizontal"]),
 };
 
 export default TrafficLights;
