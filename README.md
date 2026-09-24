@@ -63,3 +63,5 @@
 3. **Посилання на звіт у Google Classroom.** 
 
 ---
+
+![alt text](assets/image.png)
