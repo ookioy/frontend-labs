@@ -3,7 +3,7 @@ import TrafficLights from "./TrafficLights";
 function App() {
   return (
     <>
-      <TrafficLights orientation="vertical" />
+      <TrafficLights />
     </>
   );
 }
