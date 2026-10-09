@@ -1,25 +1,11 @@
 import PropTypes from "prop-types";
 import Light from "./Light";
+import "./TrafficLights.css";
 
 const TrafficLights = ({ orientation = "vertical" }) => {
-  const isHorizontal = orientation === "horizontal";
-
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: isHorizontal ? "row" : "column",
-        justifyContent: "center",
-        alignItems: "center",
-        gap: "12px",
-        width: isHorizontal ? "200px" : "80px",
-        height: isHorizontal ? "80px" : "200px",
-        padding: isHorizontal ? "15px" : "20px 10px",
-        backgroundColor: "#1f2937",
-        margin: "40px auto",
-      }}
-    >
-      <Light tlColor="red" isActive />
+    <div className={`traffic-lights traffic-lights--${orientation}`}>
+      <Light tlColor="red" isActive={true} />
       <Light tlColor="yellow" />
       <Light tlColor="green" />
     </div>

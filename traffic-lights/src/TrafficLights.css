@@ -1,0 +1,22 @@
+.traffic-lights {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  background-color: #1f2937;
+  margin: 40px auto;
+}
+
+.traffic-lights--vertical {
+  flex-direction: column;
+  width: 80px;
+  height: 200px;
+  padding: 20px 10px;
+}
+
+.traffic-lights--horizontal {
+  flex-direction: row;
+  width: 200px;
+  height: 80px;
+  padding: 15px;
+}
