@@ -39,10 +39,12 @@ const TrafficLights = () => {
     );
   };
 
-  const total =
+  const totalClicks =
     trafficState.counters.red +
     trafficState.counters.yellow +
     trafficState.counters.green;
+  const orientationLabel =
+    orientation === "vertical" ? "Вертикальна" : "Горизонтальна";
 
   return (
     <div>
@@ -69,8 +71,9 @@ const TrafficLights = () => {
         yellow={trafficState.counters.yellow}
         green={trafficState.counters.green}
         currentSignal={trafficState.currentSignal}
-        total={total}
+        total={totalClicks}
         orientation={orientation}
+        orientationLabel={orientationLabel}
         onToggleOrientation={handleToggleOrientation}
       />
     </div>
