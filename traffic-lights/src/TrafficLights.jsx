@@ -4,7 +4,8 @@ import Light from "./Light";
 import StatsBar from "./StatsBar";
 import "./TrafficLights.css";
 
-const TrafficLights = ({ orientation = "vertical" }) => {
+const TrafficLights = () => {
+  const [orientation, setOrientation] = useState("vertical");
   const [trafficState, setTrafficState] = useState({
     currentSignal: "red",
     counters: {
@@ -30,6 +31,12 @@ const TrafficLights = ({ orientation = "vertical" }) => {
         },
       };
     });
+  };
+
+  const handleToggleOrientation = () => {
+    setOrientation((previous) =>
+      previous === "vertical" ? "horizontal" : "vertical"
+    );
   };
 
   const total =
@@ -63,13 +70,13 @@ const TrafficLights = ({ orientation = "vertical" }) => {
         green={trafficState.counters.green}
         currentSignal={trafficState.currentSignal}
         total={total}
+        orientation={orientation}
+        onToggleOrientation={handleToggleOrientation}
       />
     </div>
   );
 };
 
-TrafficLights.propTypes = {
-  orientation: PropTypes.oneOf(["vertical", "horizontal"]),
-};
+TrafficLights.propTypes = {};
 
 export default TrafficLights;
