@@ -16,21 +16,13 @@ const TrafficLights = () => {
   });
 
   const handleSelect = (color) => {
-    setTrafficState((previous) => {
-      const isSameSignal = previous.currentSignal === color;
-
-      if (isSameSignal) {
-        return previous;
-      }
-
-      return {
-        currentSignal: color,
-        counters: {
-          ...previous.counters,
-          [color]: previous.counters[color] + 1,
-        },
-      };
-    });
+    setTrafficState((previous) => ({
+      currentSignal: color,
+      counters: {
+        ...previous.counters,
+        [color]: previous.counters[color] + 1,
+      },
+    }));
   };
 
   const handleToggleOrientation = () => {
