@@ -8,6 +8,7 @@ const StatsBar = ({
   currentSignal,
   total,
   orientation,
+  orientationLabel,
   onToggleOrientation,
 }) => {
   return (
@@ -15,8 +16,9 @@ const StatsBar = ({
       <div>red: {red}</div>
       <div>yellow: {yellow}</div>
       <div>green: {green}</div>
-      <div>total: {total}</div>
+      <div>total clicks: {total}</div>
       <div>current: {currentSignal}</div>
+      <div>orientation: {orientationLabel}</div>
       <button
         type="button"
         className="stats-bar__toggle"
@@ -35,6 +37,7 @@ StatsBar.propTypes = {
   currentSignal: PropTypes.string.isRequired,
   total: PropTypes.number.isRequired,
   orientation: PropTypes.oneOf(["vertical", "horizontal"]).isRequired,
+  orientationLabel: PropTypes.string.isRequired,
   onToggleOrientation: PropTypes.func.isRequired,
 };
 
