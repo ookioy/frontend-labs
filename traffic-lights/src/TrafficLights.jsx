@@ -1,13 +1,14 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
 import Light from "./Light";
+import StatsBar from "./StatsBar";
 import "./TrafficLights.css";
 
 const TrafficLights = ({ orientation = "vertical" }) => {
   const [trafficState, setTrafficState] = useState({
     currentSignal: "red",
     counters: {
-      red: 1,
+      red: 0,
       yellow: 0,
       green: 0,
     },
@@ -17,15 +18,24 @@ const TrafficLights = ({ orientation = "vertical" }) => {
     setTrafficState((previous) => {
       const isSameSignal = previous.currentSignal === color;
 
+      if (isSameSignal) {
+        return previous;
+      }
+
       return {
         currentSignal: color,
         counters: {
           ...previous.counters,
-          [color]: isSameSignal ? previous.counters[color] : previous.counters[color] + 1,
+          [color]: previous.counters[color] + 1,
         },
       };
     });
   };
+
+  const total =
+    trafficState.counters.red +
+    trafficState.counters.yellow +
+    trafficState.counters.green;
 
   return (
     <div>
@@ -47,11 +57,13 @@ const TrafficLights = ({ orientation = "vertical" }) => {
         />
       </div>
 
-      <div className="traffic-lights__counters">
-        <div>red: {trafficState.counters.red}</div>
-        <div>yellow: {trafficState.counters.yellow}</div>
-        <div>green: {trafficState.counters.green}</div>
-      </div>
+      <StatsBar
+        red={trafficState.counters.red}
+        yellow={trafficState.counters.yellow}
+        green={trafficState.counters.green}
+        currentSignal={trafficState.currentSignal}
+        total={total}
+      />
     </div>
   );
 };
