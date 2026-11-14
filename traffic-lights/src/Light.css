@@ -13,3 +13,7 @@
   opacity: 1;
   box-shadow: 0 0 16px rgba(255, 255, 255, 0.8);
 }
+
+.light:disabled {
+  cursor: default;
+}

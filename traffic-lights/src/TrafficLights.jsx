@@ -66,16 +66,19 @@ const TrafficLights = () => {
         <Light
           tlColor="red"
           isActive={currentSignal === "red"}
+          disabled={isAutomatic}
           onSelect={handleSelect}
         />
         <Light
           tlColor="yellow"
           isActive={currentSignal === "yellow"}
+          disabled={isAutomatic}
           onSelect={handleSelect}
         />
         <Light
           tlColor="green"
           isActive={currentSignal === "green"}
+          disabled={isAutomatic}
           onSelect={handleSelect}
         />
       </div>
