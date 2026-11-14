@@ -4,10 +4,13 @@ import Light from "./Light";
 import StatsBar from "./StatsBar";
 import "./TrafficLights.css";
 
+const CYCLE = ["red", "yellow", "green", "yellow"];
+const MANUAL_PHASE = { red: 0, yellow: 1, green: 2 };
+
 const TrafficLights = () => {
   const [orientation, setOrientation] = useState("vertical");
   const [trafficState, setTrafficState] = useState({
-    currentSignal: "red",
+    phaseIndex: 0,
     counters: {
       red: 0,
       yellow: 0,
@@ -17,7 +20,7 @@ const TrafficLights = () => {
 
   const handleSelect = (color) => {
     setTrafficState((previous) => ({
-      currentSignal: color,
+      phaseIndex: MANUAL_PHASE[color],
       counters: {
         ...previous.counters,
         [color]: previous.counters[color] + 1,
@@ -31,6 +34,7 @@ const TrafficLights = () => {
     );
   };
 
+  const currentSignal = CYCLE[trafficState.phaseIndex];
   const totalClicks =
     trafficState.counters.red +
     trafficState.counters.yellow +
@@ -43,17 +47,17 @@ const TrafficLights = () => {
       <div className={`traffic-lights traffic-lights--${orientation}`}>
         <Light
           tlColor="red"
-          isActive={trafficState.currentSignal === "red"}
+          isActive={currentSignal === "red"}
           onSelect={handleSelect}
         />
         <Light
           tlColor="yellow"
-          isActive={trafficState.currentSignal === "yellow"}
+          isActive={currentSignal === "yellow"}
           onSelect={handleSelect}
         />
         <Light
           tlColor="green"
-          isActive={trafficState.currentSignal === "green"}
+          isActive={currentSignal === "green"}
           onSelect={handleSelect}
         />
       </div>
@@ -62,7 +66,7 @@ const TrafficLights = () => {
         red={trafficState.counters.red}
         yellow={trafficState.counters.yellow}
         green={trafficState.counters.green}
-        currentSignal={trafficState.currentSignal}
+        currentSignal={currentSignal}
         total={totalClicks}
         orientation={orientation}
         orientationLabel={orientationLabel}
