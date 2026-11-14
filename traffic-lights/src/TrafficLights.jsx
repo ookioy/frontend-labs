@@ -1,11 +1,12 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Light from "./Light";
 import StatsBar from "./StatsBar";
 import "./TrafficLights.css";
 
 const CYCLE = ["red", "yellow", "green", "yellow"];
 const MANUAL_PHASE = { red: 0, yellow: 1, green: 2 };
+const PHASE_DURATION_MS = 2000;
 
 const TrafficLights = () => {
   const [orientation, setOrientation] = useState("vertical");
@@ -18,6 +19,19 @@ const TrafficLights = () => {
       green: 0,
     },
   });
+
+  useEffect(() => {
+    if (!isAutomatic) return;
+
+    const intervalId = setInterval(() => {
+      setTrafficState((previous) => ({
+        ...previous,
+        phaseIndex: (previous.phaseIndex + 1) % CYCLE.length,
+      }));
+    }, PHASE_DURATION_MS);
+
+    return () => clearInterval(intervalId);
+  }, [isAutomatic]);
 
   const handleSelect = (color) => {
     setTrafficState((previous) => ({
