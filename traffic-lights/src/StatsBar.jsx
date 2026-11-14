@@ -10,6 +10,9 @@ const StatsBar = ({
   orientation,
   orientationLabel,
   isAutomatic,
+  baseDuration,
+  baseDurations,
+  onBaseDurationChange,
   onStart,
   onStop,
   onToggleOrientation,
@@ -23,6 +26,19 @@ const StatsBar = ({
       <div>current: {currentSignal}</div>
       <div>orientation: {orientationLabel}</div>
       <div>mode: {isAutomatic ? "auto" : "manual"}</div>
+      <label>
+        base:{" "}
+        <select
+          value={baseDuration}
+          onChange={(event) => onBaseDurationChange(event.target.value)}
+        >
+          {baseDurations.map((value) => (
+            <option key={value} value={value}>
+              {value / 1000} s
+            </option>
+          ))}
+        </select>
+      </label>
       <button
         type="button"
         className="stats-bar__toggle"
@@ -59,6 +75,9 @@ StatsBar.propTypes = {
   orientation: PropTypes.oneOf(["vertical", "horizontal"]).isRequired,
   orientationLabel: PropTypes.string.isRequired,
   isAutomatic: PropTypes.bool.isRequired,
+  baseDuration: PropTypes.number.isRequired,
+  baseDurations: PropTypes.arrayOf(PropTypes.number).isRequired,
+  onBaseDurationChange: PropTypes.func.isRequired,
   onStart: PropTypes.func.isRequired,
   onStop: PropTypes.func.isRequired,
   onToggleOrientation: PropTypes.func.isRequired,

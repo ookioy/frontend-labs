@@ -6,11 +6,13 @@ import "./TrafficLights.css";
 
 const CYCLE = ["red", "yellow", "green", "yellow"];
 const MANUAL_PHASE = { red: 0, yellow: 1, green: 2 };
-const PHASE_DURATION_MS = 2000;
+const PHASE_FACTOR = { red: 3, yellow: 1, green: 2 };
+const BASE_DURATIONS_MS = [500, 1000, 1500, 2000];
 
 const TrafficLights = () => {
   const [orientation, setOrientation] = useState("vertical");
   const [isAutomatic, setIsAutomatic] = useState(false);
+  const [baseDuration, setBaseDuration] = useState(1000);
   const [trafficState, setTrafficState] = useState({
     phaseIndex: 0,
     counters: {
@@ -20,18 +22,20 @@ const TrafficLights = () => {
     },
   });
 
+  const { phaseIndex } = trafficState;
+
   useEffect(() => {
     if (!isAutomatic) return;
 
-    const intervalId = setInterval(() => {
+    const timeoutId = setTimeout(() => {
       setTrafficState((previous) => ({
         ...previous,
         phaseIndex: (previous.phaseIndex + 1) % CYCLE.length,
       }));
-    }, PHASE_DURATION_MS);
+    }, PHASE_FACTOR[CYCLE[phaseIndex]] * baseDuration);
 
-    return () => clearInterval(intervalId);
-  }, [isAutomatic]);
+    return () => clearTimeout(timeoutId);
+  }, [isAutomatic, phaseIndex, baseDuration]);
 
   const handleSelect = (color) => {
     setTrafficState((previous) => ({
@@ -43,6 +47,8 @@ const TrafficLights = () => {
     }));
   };
 
+  const handleBaseDurationChange = (value) => setBaseDuration(Number(value));
+
   const handleStart = () => setIsAutomatic(true);
   const handleStop = () => setIsAutomatic(false);
 
@@ -52,7 +58,7 @@ const TrafficLights = () => {
     );
   };
 
-  const currentSignal = CYCLE[trafficState.phaseIndex];
+  const currentSignal = CYCLE[phaseIndex];
   const totalClicks =
     trafficState.counters.red +
     trafficState.counters.yellow +
@@ -92,6 +98,9 @@ const TrafficLights = () => {
         orientation={orientation}
         orientationLabel={orientationLabel}
         isAutomatic={isAutomatic}
+        baseDuration={baseDuration}
+        baseDurations={BASE_DURATIONS_MS}
+        onBaseDurationChange={handleBaseDurationChange}
         onStart={handleStart}
         onStop={handleStop}
         onToggleOrientation={handleToggleOrientation}
