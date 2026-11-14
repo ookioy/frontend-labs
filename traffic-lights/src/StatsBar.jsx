@@ -9,6 +9,9 @@ const StatsBar = ({
   total,
   orientation,
   orientationLabel,
+  isAutomatic,
+  onStart,
+  onStop,
   onToggleOrientation,
 }) => {
   return (
@@ -19,6 +22,23 @@ const StatsBar = ({
       <div>total clicks: {total}</div>
       <div>current: {currentSignal}</div>
       <div>orientation: {orientationLabel}</div>
+      <div>mode: {isAutomatic ? "auto" : "manual"}</div>
+      <button
+        type="button"
+        className="stats-bar__toggle"
+        onClick={onStart}
+        disabled={isAutomatic}
+      >
+        Запустити
+      </button>
+      <button
+        type="button"
+        className="stats-bar__toggle"
+        onClick={onStop}
+        disabled={!isAutomatic}
+      >
+        Зупинити
+      </button>
       <button
         type="button"
         className="stats-bar__toggle"
@@ -38,6 +58,9 @@ StatsBar.propTypes = {
   total: PropTypes.number.isRequired,
   orientation: PropTypes.oneOf(["vertical", "horizontal"]).isRequired,
   orientationLabel: PropTypes.string.isRequired,
+  isAutomatic: PropTypes.bool.isRequired,
+  onStart: PropTypes.func.isRequired,
+  onStop: PropTypes.func.isRequired,
   onToggleOrientation: PropTypes.func.isRequired,
 };
 

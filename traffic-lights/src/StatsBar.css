@@ -19,3 +19,8 @@
   font-weight: 700;
   cursor: pointer;
 }
+
+.stats-bar__toggle:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

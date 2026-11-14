@@ -9,6 +9,7 @@ const MANUAL_PHASE = { red: 0, yellow: 1, green: 2 };
 
 const TrafficLights = () => {
   const [orientation, setOrientation] = useState("vertical");
+  const [isAutomatic, setIsAutomatic] = useState(false);
   const [trafficState, setTrafficState] = useState({
     phaseIndex: 0,
     counters: {
@@ -27,6 +28,9 @@ const TrafficLights = () => {
       },
     }));
   };
+
+  const handleStart = () => setIsAutomatic(true);
+  const handleStop = () => setIsAutomatic(false);
 
   const handleToggleOrientation = () => {
     setOrientation((previous) =>
@@ -70,6 +74,9 @@ const TrafficLights = () => {
         total={totalClicks}
         orientation={orientation}
         orientationLabel={orientationLabel}
+        isAutomatic={isAutomatic}
+        onStart={handleStart}
+        onStop={handleStop}
         onToggleOrientation={handleToggleOrientation}
       />
     </div>
